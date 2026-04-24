@@ -26,19 +26,22 @@ class Database:
         return cls._instance
     
     def _connect(self):
-        """Establish connection to MongoDB"""
-        try:
-            mongo_uri = os.getenv('MONGODB_URI', 'mongodb://localhost:27017/')
-            db_name = os.getenv('DATABASE_NAME', 'stellar_gateway')
-            
-            self._client = MongoClient(
-                mongo_uri,
-                serverSelectionTimeoutMS=5000,
-                connectTimeoutMS=10000,
-                socketTimeoutMS=10000,
-                maxPoolSize=50,
-                retryWrites=True
-            )
+    try:
+        mongo_uri = os.getenv('MONGO_URI')
+
+        if not mongo_uri:
+            raise Exception("MONGO_URI not found in environment variables")
+
+        db_name = os.getenv('DATABASE_NAME', 'stellar_gateway')
+
+        self._client = MongoClient(
+            mongo_uri,
+            serverSelectionTimeoutMS=5000,
+            connectTimeoutMS=10000,
+            socketTimeoutMS=10000,
+            maxPoolSize=50,
+            retryWrites=True
+        )
             
             # Test connection
             self._client.admin.command('ping')
