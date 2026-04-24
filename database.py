@@ -53,7 +53,7 @@ class Database:
         print("✅ MongoDB Connected Successfully")
 
     except Exception as e:
-        print("❌ Mongo Error:", e)   # ✅ ADD HERE
+        print("❌ Mongo Error:", e)
         raise
             
             # Setup indexes
