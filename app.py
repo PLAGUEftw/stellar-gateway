@@ -3,17 +3,23 @@ Stellar Gateway - Main Application
 Complete Flask app with MongoDB integration
 """
 import requests
+import os
 
 from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime, timedelta
 from functools import wraps
+
 from dotenv import load_dotenv
 from pymongo import MongoClient
 
-client = MongoClient("mongodb://localhost:27017/")
+# Load environment variables
+load_dotenv()
+
+# MongoDB connection
+mongo_uri = os.getenv("MONGO_URI")
+client = MongoClient(mongo_uri)
 db = client["stellar_gateway"]
-import os
 
 from database import (
     Database, 
