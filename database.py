@@ -30,6 +30,8 @@ class Database:
     try:
         mongo_uri = os.getenv('MONGO_URI')
 
+        print("Mongo URI:", mongo_uri)
+
         if not mongo_uri:
             raise Exception("MONGO_URI not found in environment variables")
 
@@ -43,10 +45,16 @@ class Database:
             maxPoolSize=50,
             retryWrites=True
         )
-            
-            # Test connection
-            self._client.admin.command('ping')
-            self._db = self._client[db_name]
+
+        # Test connection
+        self._client.admin.command('ping')
+        self._db = self._client[db_name]
+
+        print("✅ MongoDB Connected Successfully")
+
+    except Exception as e:
+        print("❌ Mongo Error:", e)   # ✅ ADD HERE
+        raise
             
             # Setup indexes
             self._setup_indexes()
