@@ -30,7 +30,7 @@ class Database:
         mongo_uri = os.getenv('MONGO_URI')
 
         if not mongo_uri:
-            raise Exception("MONGO_URI not found in environment variables")
+            print("⚠️ MONGO_URI missing")
 
         db_name = os.getenv('DATABASE_NAME', 'stellar_gateway')
 
