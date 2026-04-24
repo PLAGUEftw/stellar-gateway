@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block title %}Stellar Gateway - Explore the Universe{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <div class="planet-orbit">
+            <div class="sun"></div>
+            <div class="orbit orbit-1"><div class="planet planet-1"></div></div>
+            <div class="orbit orbit-2"><div class="planet planet-2"></div></div>
+            <div class="orbit orbit-3"><div class="planet planet-3"></div></div>
+        </div>
+        <h1 class="hero-title glitch" data-text="STELLAR GATEWAY">STELLAR GATEWAY</h1>
+        <p class="hero-subtitle typewriter">Journey through space, wonder to chase!</p>
+        <p class="hero-description">
+            Embark on an extraordinary voyage across the cosmos. Explore distant planets, 
+            witness incredible space missions, and unlock the mysteries of the universe.
+        </p>
+        <div class="hero-buttons">
+            {% if session.username %}
+                <a href="{{ url_for('dashboard') }}" class="btn btn-primary">
+                    <span>Enter Dashboard</span>
+                    <span class="btn-glow"></span>
+                </a>
+            {% else %}
+                <a href="{{ url_for('register') }}" class="btn btn-primary">
+                    <span>🚀 Start Journey</span>
+                    <span class="btn-glow"></span>
+                </a>
+                <a href="{{ url_for('login') }}" class="btn btn-secondary">
+                    <span>Login</span>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="scroll-indicator">
+        <div class="mouse"><div class="wheel"></div></div>
+        <p>Scroll to Explore</p>
+    </div>
+</section>
+
+<section class="features">
+    <h2 class="section-title">🌟 Explore the Cosmos</h2>
+    <div class="features-grid">
+        <div class="feature-card" data-aos="fade-up">
+            <div class="feature-icon">🪐</div>
+            <h3>Planetary Systems</h3>
+            <p>Discover detailed information about planets in our solar system and beyond.</p>
+        </div>
+        <div class="feature-card" data-aos="fade-up">
+            <div class="feature-icon">🚀</div>
+            <h3>Space Missions</h3>
+            <p>Learn about historic and current space missions shaping humanity's future.</p>
+        </div>
+        <div class="feature-card" data-aos="fade-up">
+            <div class="feature-icon">🌠</div>
+            <h3>Stellar Gallery</h3>
+            <p>Witness breathtaking images captured from the depths of space.</p>
+        </div>
+        <div class="feature-card" data-aos="fade-up">
+            <div class="feature-icon">🛸</div>
+            <h3>Live Updates</h3>
+            <p>Stay updated with the latest discoveries and space phenomena.</p>
+        </div>
+    </div>
+</section>
+
+<section class="stats">
+    <div class="stat-item">
+        <div class="stat-number" data-count="8">0</div>
+        <div class="stat-label">Planets</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number" data-count="200">0</div>
+        <div class="stat-label">Missions</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number" data-count="1000">0</div>
+        <div class="stat-label">Galaxies</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number" data-count="13800000000">0</div>
+        <div class="stat-label">Years Old</div>
+    </div>
+</section>
+
+<section class="cta-section">
+    <div class="cta-content">
+        <h2>Ready to Begin Your Cosmic Adventure?</h2>
+        <p>Join thousands of space enthusiasts exploring the universe</p>
+        {% if not session.username %}
+            <a href="{{ url_for('register') }}" class="btn btn-primary btn-large">
+                Launch Your Journey 🚀
+            </a>
+        {% else %}
+            <a href="{{ url_for('planets') }}" class="btn btn-primary btn-large">
+                Explore Planets 🪐
+            </a>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

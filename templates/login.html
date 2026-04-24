@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Login - Stellar Gateway{% endblock %}
+
+{% block content %}
+<section class="auth-section">
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="auth-icon">🚀</div>
+                <h2>Welcome Back, Explorer</h2>
+                <p>Login to continue your cosmic journey</p>
+            </div>
+            <form method="POST" class="auth-form">
+                <div class="form-group">
+                    <label for="username">
+                        <span class="label-icon">👤</span>
+                        Username or Email
+                    </label>
+                    <input type="text" id="username" name="username" required 
+                           placeholder="Enter your username" autocomplete="username">
+                    <div class="input-glow"></div>
+                </div>
+                <div class="form-group">
+                    <label for="password">
+                        <span class="label-icon">🔒</span>
+                        Password
+                    </label>
+                    <input type="password" id="password" name="password" required 
+                           placeholder="Enter your password" autocomplete="current-password">
+                    <div class="input-glow"></div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">
+                    <span>Launch 🚀</span>
+                    <span class="btn-glow"></span>
+                </button>
+            </form>
+            <div class="auth-footer">
+                <p>New to Stellar Gateway? <a href="{{ url_for('register') }}">Create Account</a></p>
+            </div>
+        </div>
+        <div class="auth-visual">
+            <div class="floating-astronaut">👨‍🚀</div>
+            <div class="floating-planet floating-1">🪐</div>
+            <div class="floating-planet floating-2">🌙</div>
+            <div class="floating-planet floating-3">⭐</div>
+        </div>
+    </div>
+</section>
+{% endblock %}

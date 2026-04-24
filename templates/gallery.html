@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Gallery - Stellar Gateway{% endblock %}
+
+{% block content %}
+<section class="page-section">
+    <div class="page-header">
+        <h1 class="page-title">🌌 Cosmic Gallery</h1>
+        <p class="page-subtitle">Breathtaking views from across the universe</p>
+    </div>
+
+    <div class="gallery-grid">
+        {% for item in gallery_items %}
+        <div class="gallery-item">
+            <img src="{{ item.image }}" alt="{{ item.title }}" class="gallery-img">
+
+            <div class="gallery-overlay">
+                <h3>{{ item.title }}</h3>
+                <p>{{ item.desc }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</section>
+{% endblock %}

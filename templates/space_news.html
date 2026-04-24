@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-section">
+    <div class="page-header">
+        <h1 class="page-title">📰 Space News</h1>
+        <p class="page-subtitle">Latest updates from space</p>
+    </div>
+
+    <div class="gallery-grid">
+        {% for item in articles %}
+        <a href="{{ item.link }}" target="_blank" class="gallery-item">
+            <img src="{{ item.image }}" class="gallery-img">
+
+            <div class="gallery-overlay">
+                <h3>{{ item.title }}</h3>
+                <p>{{ item.desc[:100] }}...</p>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

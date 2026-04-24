@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}Planets - Stellar Gateway{% endblock %}
+
+{% block content %}
+<section class="page-section">
+    <div class="page-header">
+        <h1 class="page-title">🪐 Planets of Our Solar System</h1>
+        <p class="page-subtitle">Explore the celestial bodies orbiting our Sun</p>
+    </div>
+
+    <div class="planets-grid">
+        {% for planet in planets %}
+        <div class="planet-card" style="--planet-color: {{ planet.color }}">
+            
+            <div class="planet-visual">
+                <div class="planet-sphere"
+                     style="background: radial-gradient(circle at 30% 30%, {{ planet.color }}, {{ planet.color ~ '88' }}, #000);">
+
+                    <!-- 🆕 Planet Image -->
+                    <img src="{{ planet.image }}" alt="{{ planet.name }}" class="planet-img">
+
+                    <!-- (Optional) Emoji fallback -->
+                    <!-- <span class="planet-symbol">{{ planet.emoji }}</span> -->
+
+                </div>
+                <div class="planet-orbit-ring"></div>
+            </div>
+
+            <div class="planet-info">
+                <h2>{{ planet.name }}</h2>
+                <p class="planet-desc">{{ planet.description }}</p>
+
+                <div class="planet-stats">
+                    <div class="stat">
+                        <span class="stat-icon">📏</span>
+                        <div>
+                            <small>Diameter</small>
+                            <strong>{{ planet.diameter }}</strong>
+                        </div>
+                    </div>
+
+                    <div class="stat">
+                        <span class="stat-icon">☀️</span>
+                        <div>
+                            <small>Distance</small>
+                            <strong>{{ planet.distance }}</strong>
+                        </div>
+                    </div>
+
+                    <div class="stat">
+                        <span class="stat-icon">🌙</span>
+                        <div>
+                            <small>Moons</small>
+                            <strong>{{ planet.moons }}</strong>
+                        </div>
+                    </div>
+
+                    <div class="stat">
+                        <span class="stat-icon">⏰</span>
+                        <div>
+                            <small>Day Length</small>
+                            <strong>{{ planet.day_length }}</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

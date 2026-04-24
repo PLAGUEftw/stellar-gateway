@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - Stellar Gateway{% endblock %}
+
+{% block content %}
+<section class="dashboard">
+    <div class="dashboard-header">
+        <h1>Welcome, Commander <span class="highlight">{{ username }}</span> 👨‍🚀</h1>
+        <p class="dashboard-subtitle">Your cosmic control center awaits</p>
+    </div>
+
+    <div class="dashboard-grid">
+        <a href="{{ url_for('planets') }}" class="dashboard-card">
+            <div class="card-icon">🪐</div>
+            <h3>Explore Planets</h3>
+            <p>Discover 8 planets in our solar system</p>
+            <div class="card-arrow">→</div>
+        </a>
+        <a href="{{ url_for('planet_surfaces') }}" class="dashboard-card">
+    <div class="card-icon">🪐</div>
+    <h3>Planet Surfaces</h3>
+    <p>Explore real planetary terrains</p>
+    <span class="card-arrow">→</span>
+</a>
+        <a href="{{ url_for('missions') }}" class="dashboard-card">
+            <div class="card-icon">🚀</div>
+            <h3>Space Missions</h3>
+            <p>Learn about historic space expeditions</p>
+            <div class="card-arrow">→</div>
+        </a>
+        <a href="{{ url_for('gallery') }}" class="dashboard-card">
+            <div class="card-icon">🌌</div>
+            <h3>Space Gallery</h3>
+            <p>View stunning cosmic imagery</p>
+            <div class="card-arrow">→</div>
+        </a>
+    </div>
+
+    <div class="featured-section">
+        <h2 class="section-title">🌟 Featured Planets</h2>
+        <div class="planets-preview">
+            {% for planet in planets %}
+            <div class="planet-preview-card">
+                <div class="planet-emoji" style="color: {{ planet.color }}">{{ planet.emoji }}</div>
+                <h4>{{ planet.name }}</h4>
+                <p>{{ planet.description[:80] }}...</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="featured-section">
+        <h2 class="section-title">🚀 Recent Missions</h2>
+        <div class="missions-preview">
+            {% for mission in missions %}
+            <div class="mission-preview-card">
+                <div class="mission-icon">{{ mission.icon }}</div>
+                <div class="mission-info">
+                    <h4>{{ mission.name }}</h4>
+                    <p class="mission-meta">{{ mission.agency }} • {{ mission.year }}</p>
+                    <p>{{ mission.description[:100] }}...</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

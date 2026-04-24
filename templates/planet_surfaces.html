@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Planet Surfaces{% endblock %}
+
+{% block content %}
+<section class="page-section">
+    <div class="page-header">
+        <h1 class="page-title">🪐 Planet Surfaces</h1>
+        <p class="page-subtitle">Explore the surfaces of our solar system</p>
+    </div>
+
+    <div class="gallery-grid">
+        {% for item in planet_items %}
+        <div class="gallery-item">
+            <img src="{{ item.image }}" alt="{{ item.title }}" class="gallery-img">
+
+            <div class="gallery-overlay">
+                <h3>{{ item.title }}</h3>
+                <p>{{ item.desc }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
