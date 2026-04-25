@@ -233,31 +233,42 @@ def planet_surfaces():
 @app.route('/nasa-gallery')
 @login_required
 def nasa_gallery():
-    API_KEY = os.getenv("NASA_API_KEY")
-    url = f"https://api.nasa.gov/planetary/apod?api_key={API_KEY}&count=20"
+    API_KEY = os.getenv("NASA_API_KEY", "DEMO_KEY")
+    # thumbs=true gives thumbnail for videos too
+    url = f"https://api.nasa.gov/planetary/apod?api_key={API_KEY}&count=20&thumbs=true"
 
     try:
-        response = requests.get(url, timeout=5)
+        response = requests.get(url, timeout=10)
+
         if response.status_code != 200:
+            print("NASA API ERROR:", response.status_code, response.text)
             return render_template("nasa_gallery.html", gallery_items=[])
 
-        try:
-            data = response.json()
-        except Exception:
-            return render_template("nasa_gallery.html", gallery_items=[])
+        data = response.json()
 
         if isinstance(data, dict):
             data = [data]
 
-        gallery_items = [
-            {
-                "title": item.get("title"),
-                "desc": item.get("explanation", "")[:100] + "...",
-                "image": item.get("url")
-            }
-            for item in data
-            if isinstance(item, dict) and item.get("media_type") == "image"
-        ]
+        gallery_items = []
+        for item in data:
+            if not isinstance(item, dict):
+                continue
+
+            # ✅ Handle both images AND videos (use thumbnail for videos)
+            if item.get("media_type") == "image":
+                image_url = item.get("url")
+            elif item.get("media_type") == "video":
+                image_url = item.get("thumbnail_url")  # needs thumbs=true
+            else:
+                continue
+
+            if image_url:  # only add if we have a valid image
+                gallery_items.append({
+                    "title": item.get("title", "Untitled"),
+                    "desc": item.get("explanation", "")[:150] + "...",
+                    "image": image_url,
+                    "date": item.get("date", "")
+                })
 
         return render_template("nasa_gallery.html", gallery_items=gallery_items)
 
