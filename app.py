@@ -454,3 +454,19 @@ if __name__ == '__main__':
         host='0.0.0.0',
         port=5000
     )
+
+    @app.route('/debug-nasa')
+def debug_nasa():
+    """Temporary debug route - remove after fixing"""
+    API_KEY = os.getenv("NASA_API_KEY", "DEMO_KEY")
+    url = f"https://api.nasa.gov/planetary/apod?api_key={API_KEY}&count=5&thumbs=true"
+    try:
+        response = requests.get(url, timeout=10)
+        return jsonify({
+            "status_code": response.status_code,
+            "api_key_set": os.getenv("NASA_API_KEY") is not None,
+            "api_key_prefix": os.getenv("NASA_API_KEY", "")[:6] + "...",
+            "raw_response": response.json()
+        })
+    except Exception as e:
+        return jsonify({"error": str(e)})
