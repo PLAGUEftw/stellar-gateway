@@ -3,6 +3,7 @@ MongoDB Database Module for Stellar Gateway
 Handles all database connections and operations
 """
 
+
 from pymongo import MongoClient, ASCENDING, DESCENDING
 from pymongo.errors import ConnectionFailure, DuplicateKeyError, OperationFailure
 from datetime import datetime
@@ -10,7 +11,9 @@ from bson.objectid import ObjectId
 import os
 from dotenv import load_dotenv
 
+
 load_dotenv()
+
 
 class Database:
     """MongoDB Database Handler Class"""
@@ -26,49 +29,38 @@ class Database:
         return cls._instance
     
     def _connect(self):
-    """Establish connection to MongoDB"""
-    try:
-        mongo_uri = os.getenv('MONGO_URI')
+        """Establish connection to MongoDB"""
+        try:
+            mongo_uri = os.getenv('MONGO_URI')
 
-        print("Mongo URI:", mongo_uri)
+            print("Mongo URI:", mongo_uri)
 
-        if not mongo_uri:
-            raise Exception("MONGO_URI not found in environment variables")
+            if not mongo_uri:
+                raise Exception("MONGO_URI not found in environment variables")
 
-        db_name = os.getenv('DATABASE_NAME', 'stellar_gateway')
+            db_name = os.getenv('DATABASE_NAME', 'stellar_gateway')
 
-        self._client = MongoClient(
-            mongo_uri,
-            serverSelectionTimeoutMS=5000,
-            connectTimeoutMS=10000,
-            socketTimeoutMS=10000,
-            maxPoolSize=50,
-            retryWrites=True
-        )
+            self._client = MongoClient(
+                mongo_uri,
+                serverSelectionTimeoutMS=5000,
+                connectTimeoutMS=10000,
+                socketTimeoutMS=10000,
+                maxPoolSize=50,
+                retryWrites=True
+            )
 
-        # Test connection
-        self._client.admin.command('ping')
-        self._db = self._client[db_name]
+            # Test connection
+            self._client.admin.command('ping')
+            self._db = self._client[db_name]
 
-        print("✅ MongoDB Connected Successfully")
-
-    except Exception as e:
-        print("❌ Mongo Error:", e)
-        raise
-            
             # Setup indexes
             self._setup_indexes()
-            
+
             print(f"✅ MongoDB Connected Successfully → Database: {db_name}")
             return True
-            
-        except ConnectionFailure as e:
-            print(f"❌ MongoDB Connection Failed: {e}")
-            self._client = None
-            self._db = None
-            return False
+
         except Exception as e:
-            print(f"❌ MongoDB Error: {e}")
+            print("❌ Mongo Error:", e)
             self._client = None
             self._db = None
             return False
@@ -120,6 +112,7 @@ class Database:
 
 
 # ==================== USER OPERATIONS ====================
+
 
 class UserManager:
     """Handle all user-related database operations"""
@@ -291,6 +284,7 @@ class UserManager:
 
 # ==================== ACTIVITY OPERATIONS ====================
 
+
 class ActivityManager:
     """Handle user activity logging"""
     
@@ -346,6 +340,7 @@ class ActivityManager:
 
 
 # ==================== FAVORITES OPERATIONS ====================
+
 
 class FavoritesManager:
     """Handle user favorites"""
@@ -425,6 +420,7 @@ class FavoritesManager:
 
 # ==================== PLANET OPERATIONS ====================
 
+
 class PlanetManager:
     """Handle planet data operations"""
     
@@ -480,6 +476,7 @@ class PlanetManager:
 
 
 # ==================== MISSION OPERATIONS ====================
+
 
 class MissionManager:
     """Handle mission data operations"""
